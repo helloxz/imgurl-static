@@ -62,7 +62,7 @@ layui.use(['upload','form','element','layer','flow'], function(){
                 }
                 else if(res.code == 200){
                     layer.closeAll('loading'); 
-                    $("#img-thumb a").attr('href','/img/' + res.imgid);
+                    $("#img-thumb a").attr('href',domain + '/img/' + res.imgid);
                     $("#img-thumb img").attr('src',res.thumbnail_url);
                     $("#url").val(res.url);
                     $("#html").val("<img src = '" + res.url + "' />");
@@ -193,7 +193,7 @@ function showlink(url,thumburl){
         content: $('#imglink'),
         area: ['680px', '500px']
     });
-    $("#img-thumb a").attr('href', thumburl);
+    $("#img-thumb a").attr('href', domain + thumburl);
     $("#img-thumb img").attr('src',thumburl);
     $("#url").val(url);
     $("#html").val("<img src = '" + url + "' />");

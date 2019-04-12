@@ -11,11 +11,10 @@
     <link rel="shortcut icon" href="./favicon.ico"  type="image/x-icon" />
 	<link rel="Bookmark" href="./favicon.ico" />
     <link rel="stylesheet" href="./static/layui/css/layui.css">
-    <link rel="stylesheet" href="./static/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="./static/style.css?v=v2.1.3-20190407">
     <script src="./static/jquery.min.js"></script>
-    <!-- 统计代码 -->
-        <!-- 统计代码END -->
+    <script src="./static/layui/layui.js"></script>
+    <script src="./static/embed.js?v=v2.1.3-20190407"></script>
 </head>
 <body>
 	<!-- 顶部导航栏 -->
@@ -33,6 +32,8 @@
                     <div class = "layui-hide-xs menu">
                         <ul class="layui-nav" lay-filter="">
                             <li class="layui-nav-item"><a href="https://imgurl.org/found"><i class="layui-icon layui-icon-search"></i> 探索发现</a></li>
+                            <li class="layui-nav-item"><a href="https://imgurl.org/home/log"><i class="layui-icon layui-icon-notice"></i> 更新日志</a></li>
+                            <li class="layui-nav-item"><a href="https://doc.xiaoz.me/#/imgurl2/api" target = "_blank"><i class="layui-icon layui-icon-template-1"></i> API</a></li>
                             <li class="layui-nav-item"><a href="https://doc.xiaoz.me/#/imgurl2/" target = "_blank" rel = "nofollow"><i class="layui-icon">&#xe705;</i> 帮助文档</a></li>
                             <li class="layui-nav-item"><a href="https://github.com/helloxz/imgurl" target = "_blank" rel = "nofollow"><i class="layui-icon">&#xe635;</i> 源码</a></li>
                             <li class="layui-nav-item"><a href="https://imgurl.org/page/use"><i class="layui-icon">&#xe60b;</i> 关于</a></li>
@@ -59,20 +60,6 @@
                     <span class="alert-inner--text"><strong>注意：</strong>游客限制每日上传10张，单张图片不能超过5M，上传的图片将公开显示，使用之前请先阅读《<a href = "https://imgurl.org/page/use">使用协议</a>》</span>
                 </div>
                 <!-- 选择按钮 -->
-                <!-- 上传地址 -->
-                <!-- <div id = "storage">
-                    <form class="layui-form" action="">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">存储方式</label>
-                        <div class="layui-input-block">
-                        <input type="radio" name="storage" value="localhost" title="本地" checked = "checked">
-                        <input type="radio" name="storage" value="qiniu" title="七牛云">
-                        <input type="radio" name="storage" value="upyun" title="又拍云">
-                        <input type="radio" name="storage" value="oss" title="阿里OSS">
-                        </div>
-                    </div>
-                    </form>
-                </div> -->
                 <!-- 选择按钮END -->
                 <!-- 上传区域 -->
                 <div class="layui-form-item">
@@ -138,7 +125,7 @@
 
 	// 实例化即可
 	new ctrlVUtil({
-	    uploadUrl: "/upload/parse",
+	    uploadUrl: domain + "/api/upload/parse",
 	    targetElement: load1,
 		isCompleteImg:false,
 	    data:{
@@ -151,7 +138,7 @@
 	        if(res.code == 200){
 		        layer.closeAll('loading'); 
                 //layer.closeAll('loading'); 
-                $("#img-thumb a").attr('href','/img/' + res.imgid);
+                $("#img-thumb a").attr('href',domain + '/img/' + res.imgid);
                 $("#img-thumb img").attr('src',res.thumbnail_url);
                 $("#url").val(res.url);
                 $("#html").val("<img src = '" + res.url + "' />");
@@ -160,7 +147,7 @@
                 $("#imgshow").show();
 
                 //对图片进行鉴黄识别
-                $.get("/deal/identify/" + res.id,function(data,status){
+                $.get(domain + "/deal/identify/" + res.id,function(data,status){
                     var re = JSON.parse(data);
                     //状态码为400，说明该图片存在异常
                     if(re.code == 400){
@@ -190,17 +177,12 @@
 		<div class = "layui-container">
 			<div class = "layui-row">
 				<div class = "layui-col-lg12">
-					Copyright © 2017-2019 Powered by <a href="https://imgurl.org/" target = "_blank">ImgURL</a> | Author <a href="https://www.xiaoz.me/" target = "_blank">xiaoz.me</a> | 
-					<!-- 简单判断用户是否登录 -->
-											<a href="/user/login">login</a>
-										<!-- 简单判断用户是否登录END -->
+					Copyright © 2017-2019 Powered by <a href="https://imgurl.org/" target = "_blank">ImgURL</a> | Author <a href="https://www.xiaoz.me/" target = "_blank">xiaoz.me</a>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 底部END -->
-	<script src="./static/layui/layui.js"></script>
-	<script src="./static/embed.js?v=v2.1.3-20190407"></script>
 	<script src="./static/clipBoard.min.js?v=1.40"></script>
 </body>
 </html>
