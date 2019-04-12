@@ -12,7 +12,7 @@
 // 这个东西没值，你拿不到
 
 //填写您的ImgURL域名
-domain = "http://new.imgurl.org";
+domain = "https://www.imgurl.org";
 layui.use(['upload','form','element','layer','flow'], function(){
 		var upload = layui.upload;
         var form = layui.form;
